@@ -6,8 +6,9 @@
 
 Blockchain::Blockchain()
 {
-    _vChain.emplace_back(Block(0, "Genesis Block"));
-    _nDifficulty = 6;
+  Block firstBlock(0, "Genesis Block");
+  _vChain.push_back(firstBlock);
+  _nDifficulty = 6;
 }
 
 void Blockchain::AddBlock(Block bNew)

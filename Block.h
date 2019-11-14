@@ -5,9 +5,10 @@
 #ifndef TESTCHAIN_BLOCK_H
 #define TESTCHAIN_BLOCK_H
 
-#include <cstdint>
+//#include <cstdint>
 #include <iostream>
 #include <sstream>
+#include <ctime>
 
 using namespace std;
 
@@ -16,13 +17,13 @@ public:
     string sHash;
     string sPrevHash;
 
-    Block(uint32_t nIndexIn, const string &sDataIn);
+    Block(unsigned int nIndexIn, const string &sDataIn);
 
-    void MineBlock(uint32_t nDifficulty);
+    void MineBlock(unsigned int nDifficulty);
 
 private:
-    uint32_t _nIndex;
-    uint32_t _nNonce;
+    unsigned int _nIndex;
+    unsigned int _nNonce;
     string _sData;
     time_t _tTime;
 

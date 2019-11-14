@@ -5,7 +5,6 @@
 #ifndef TESTCHAIN_BLOCKCHAIN_H
 #define TESTCHAIN_BLOCKCHAIN_H
 
-#include <cstdint>
 #include <vector>
 #include "Block.h"
 
@@ -18,7 +17,7 @@ public:
     void AddBlock(Block bNew);
 
 private:
-    uint32_t _nDifficulty;
+    unsigned int _nDifficulty;
     vector<Block> _vChain;
 
     Block _GetLastBlock() const;
