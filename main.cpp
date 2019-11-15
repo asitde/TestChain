@@ -2,7 +2,7 @@
 
 int main()
 {
-    Blockchain bChain = Blockchain();
+    Blockchain bChain;
 
     cout << "Mining block 1..." << endl;
     bChain.AddBlock(Block(1, "Block 1 Data"));
