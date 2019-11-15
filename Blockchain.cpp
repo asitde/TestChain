@@ -5,20 +5,19 @@
 #include "Blockchain.h"
 
 Blockchain::Blockchain()
+:_nDifficulty(DIFFICULTY_LEVEL)
 {
-  Block firstBlock(0, "Genesis Block");
-  _vChain.push_back(firstBlock);
-  _nDifficulty = 6;
+  _vChain.push_back(Block(0, "Genesis Block"));
 }
 
-void Blockchain::AddBlock(Block bNew)
+void Blockchain::AddBlock(Block& rNewBlock)
 {
-    bNew.sPrevHash = _GetLastBlock().sHash;
-    bNew.MineBlock(_nDifficulty);
-    _vChain.push_back(bNew);
+  rNewBlock.SetPreviousBlockHash(GetLastBlock().GetBlockHash());
+  rNewBlock.MineBlock(_nDifficulty);
+  _vChain.push_back(rNewBlock);
 }
 
-Block Blockchain::_GetLastBlock() const
+Block Blockchain::GetLastBlock() const
 {
-    return _vChain.back();
+  return _vChain.back();
 }

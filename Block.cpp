@@ -5,40 +5,45 @@
 #include "Block.h"
 #include "sha256.h"
 
-Block::Block(unsigned int nIndexIn, const string &sDataIn) : _nIndex(nIndexIn), _sData(sDataIn)
-{
-    _nNonce = 0;
-    _tTime = time(NULL);
+Block::Block(unsigned int nIndex, const std::string& strData)
+:_nIndex(nIndex),
+_strHash(""),
+_strPreviousHash(""),
+_nNonce(0),
+_sData(strData),
+_tTime(time(NULL))
+{}
 
-    sHash = _CalculateHash();
+Block::~Block()
+{}
+
+void Block::SetPreviousBlockHash(const std::string rstrPreviousBlockHash)
+{
+  _strPreviousHash = rstrPreviousBlockHash;
+}
+
+std::string Block::GetBlockHash()
+{
+  return _strHash;
 }
 
 void Block::MineBlock(unsigned int nDifficulty)
 {
-    char* cstr = new char[nDifficulty + 1];
-    for (unsigned int i = 0; i < nDifficulty; ++i)
-    {
-        cstr[i] = '0';
-    }
-    cstr[nDifficulty] = '\0';
+  std::string str(nDifficulty,48);
+  do
+  {
+    _nNonce++;
+    _strHash = CalculateHash();
+  }
+  while(_strHash.substr(0, nDifficulty) != str);
 
-    string str(cstr);
-    delete [] cstr;
-
-    do
-    {
-        _nNonce++;
-        sHash = _CalculateHash();
-    }
-    while (sHash.substr(0, nDifficulty) != str);
-
-    cout << "Block mined: " << sHash << endl;
+  std::cout << "Block mined: " << _strHash << std::endl;
 }
 
-inline string Block::_CalculateHash() const
+std::string Block::CalculateHash() const
 {
-    stringstream ss;
-    ss << _nIndex << sPrevHash << _tTime << _sData << _nNonce;
+  std::stringstream ss;
+  ss << _nIndex << _strPreviousHash << _tTime << _sData << _nNonce;
 
-    return sha256(ss.str());
+  return sha256(ss.str());
 }

@@ -8,19 +8,26 @@
 #include <vector>
 #include "Block.h"
 
-using namespace std;
-
 class Blockchain {
-public:
-    Blockchain();
 
-    void AddBlock(Block bNew);
+public:
+
+  // Constructor
+  Blockchain();
+
+  void AddBlock(Block& rNewBlock);
 
 private:
-    unsigned int _nDifficulty;
-    vector<Block> _vChain;
+  Block GetLastBlock() const;
 
-    Block _GetLastBlock() const;
+private:
+  unsigned int        _nDifficulty;
+  std::vector<Block>  _vChain;
+
+private:
+
+  static const int DIFFICULTY_LEVEL = 6;
+
 };
 
 #endif //TESTCHAIN_BLOCKCHAIN_H

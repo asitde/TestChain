@@ -5,29 +5,40 @@
 #ifndef TESTCHAIN_BLOCK_H
 #define TESTCHAIN_BLOCK_H
 
-//#include <cstdint>
-#include <iostream>
-#include <sstream>
-#include <ctime>
-
-using namespace std;
+#include<iostream>
+#include<sstream>
+#include<ctime>
 
 class Block {
+
 public:
-    string sHash;
-    string sPrevHash;
 
-    Block(unsigned int nIndexIn, const string &sDataIn);
+  // Constructor
+  Block(unsigned int nIndex, const std::string& rstrData);
 
-    void MineBlock(unsigned int nDifficulty);
+  // Destructor
+  ~Block();
+
+public:
+
+  void SetPreviousBlockHash(const std::string rstrPreviousBlockHash);
+
+  std::string GetBlockHash();
+
+  void MineBlock(unsigned int nDifficulty);
 
 private:
-    unsigned int _nIndex;
-    unsigned int _nNonce;
-    string _sData;
-    time_t _tTime;
 
-    string _CalculateHash() const;
+  std::string CalculateHash() const;
+
+private:
+
+    unsigned int  _nIndex;
+    std::string   _strHash;
+    std::string   _strPreviousHash;
+    unsigned int  _nNonce;
+    std::string   _sData;
+    time_t        _tTime;
 };
 
 #endif //TESTCHAIN_BLOCK_H
