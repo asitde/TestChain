@@ -30,10 +30,16 @@ std::string Block::GetBlockHash()
 void Block::MineBlock(unsigned int nDifficulty)
 {
   std::string str(nDifficulty,48);
+
+  // Reset the variables
+  _nNonce   = 0;
+  _strHash  = "";
+
   do
   {
     _nNonce++;
     _strHash = CalculateHash();
+    //std::cout <<_strHash << std::endl;
   }
   while(_strHash.substr(0, nDifficulty) != str);
 
