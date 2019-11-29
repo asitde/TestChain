@@ -31,10 +31,10 @@ void Block::MineBlock(unsigned int nDifficulty)
 {
   std::string str(nDifficulty,48);
 
-  // Reset the variables
-  _nNonce   = 0;
-  _strHash  = "";
+  // Reset the nonce
+  _nNonce = 0;
 
+  time_t tTimeStart = time(NULL);
   do
   {
     _nNonce++;
@@ -42,8 +42,10 @@ void Block::MineBlock(unsigned int nDifficulty)
     //std::cout <<_strHash << std::endl;
   }
   while(_strHash.substr(0, nDifficulty) != str);
+  time_t tTimeEnd = time(NULL);
 
-  std::cout << "Block mined: " << _strHash << std::endl;
+  std::cout << "Block mined: " << _strHash << "Time taken: " << (tTimeEnd-tTimeStart) << "seconds" << std::endl;
+
 }
 
 std::string Block::CalculateHash() const

@@ -21,7 +21,6 @@ private:
   Block GetLastBlock() const;
 
 private:
-  unsigned int        _nDifficulty;
   std::vector<Block>  _vChain;
 
 private:

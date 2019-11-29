@@ -5,7 +5,6 @@
 #include "Blockchain.h"
 
 Blockchain::Blockchain()
-:_nDifficulty(DIFFICULTY_LEVEL)
 {
   _vChain.push_back(Block(0, "Genesis Block"));
 }
@@ -13,7 +12,7 @@ Blockchain::Blockchain()
 void Blockchain::AddBlock(Block& rNewBlock)
 {
   rNewBlock.SetPreviousBlockHash(GetLastBlock().GetBlockHash());
-  rNewBlock.MineBlock(_nDifficulty);
+  rNewBlock.MineBlock(DIFFICULTY_LEVEL);
   _vChain.push_back(rNewBlock);
 }
 
